@@ -1,0 +1,8 @@
+This repository contains an independently written portfolio reference implementation.
+
+Conceptual inspiration:
+  LMC-5 by the LMC-5 contributors
+  https://github.com/wuxuyun0606-collab/lmc-5
+
+No LMC-5 source code, private conversation data, production credentials, or
+production deployment configuration is included in this repository.
