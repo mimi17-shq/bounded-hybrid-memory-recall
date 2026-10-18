@@ -49,7 +49,7 @@ def literal_baseline(query: str) -> int | None:
     return max(scored)[2] if scored else None
 
 
-def vector_baseline(query: str) -> int | None:
+def nearest_neighbor_top1_no_threshold(query: str) -> int | None:
     vector = FixtureEmbedder()(query)
     scored = [(cosine_similarity(vector, memory.vector), -memory.id, memory.id) for memory in MEMORIES]
     return max(scored)[2] if scored else None
@@ -58,7 +58,10 @@ def vector_baseline(query: str) -> int | None:
 def main() -> None:
     engine = HybridRecallEngine(MEMORIES, embedder=FixtureEmbedder())
     rows = []
-    methods = {"literal_only": literal_baseline, "vector_only": vector_baseline}
+    methods = {
+        "literal_only": literal_baseline,
+        "nearest_neighbor_top1_no_threshold": nearest_neighbor_top1_no_threshold,
+    }
     correct = {name: 0 for name in (*methods, "hybrid")}
     total_chars = 0
     for query, expected in CASES:

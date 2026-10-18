@@ -1,5 +1,7 @@
 # Bounded Hybrid Memory Recall
 
+[![tests](https://github.com/mimi17-shq/bounded-hybrid-memory-recall/actions/workflows/tests.yml/badge.svg)](https://github.com/mimi17-shq/bounded-hybrid-memory-recall/actions/workflows/tests.yml)
+
 一个面向长期运行 AI 助手的**有界中文混合召回与原文证据层**。
 
 它解决的不是“有没有向量数据库”，而是更贴近真实使用的问题：如何让每轮召回的 Token 消耗稳定、中文短词能够被识别、语义相近的表达不会漏掉，同时避免把一大段无关历史塞回上下文。
@@ -95,7 +97,7 @@ print(result.trace)
 
 [`postgres/schema.sql`](postgres/schema.sql) 给出短摘要、pgvector 和原文引用表的独立示例，其中正文变化会自动清理旧摘要与旧向量。
 
-仓库另附 4 条合成合同用例，用于直观看出三种方法的互补关系：纯字面会漏掉没有原词的改写，纯向量会在短实体和无关负例上误判，混合门控在这组刻意构造的样例中为 4/4。它只是可重复的机制演示，不是公开数据集上的效果基准。
+仓库另附 4 条合成合同用例，用于直观看出三种方法的互补关系：纯字面会漏掉没有原词的改写；不设拒绝阈值、始终返回最近邻的向量 Top-1 会在短实体和无关负例上误判；混合门控在这组刻意构造的样例中为 4/4。它只是可重复的机制演示，不是公开数据集上的效果基准。
 
 ## 验收覆盖
 
@@ -123,8 +125,8 @@ print(result.trace)
 
 ## 与 LMC5 的关系
 
-这个作品受到开源项目 [`wuxuyun0606-collab/lmc-5`](https://github.com/wuxuyun0606-collab/lmc-5) 的分层长期记忆、原始事件与结构化记忆分离、向量召回等思想启发。
+这个项目受到开源项目 [`wuxuyun0606-collab/lmc-5`](https://github.com/wuxuyun0606-collab/lmc-5) 的分层长期记忆、原始事件与结构化记忆分离、向量召回等思想启发。
 
-本仓库不是 LMC5 的 Fork，不包含其源码，也不把 LMC5 已有能力描述为个人原创；这里重新实现的是一个用于求职展示的最小、脱敏、独立示例，重点呈现我在真实使用中定义的有界混合召回、短摘要与逐记忆原文证据规则。上游当前许可证与版权归其作者所有。
+本仓库不是 LMC5 的 Fork，不包含其源码，也不把 LMC5 已有能力描述为个人原创；这里重新实现的是一个最小、脱敏、独立的参考示例，重点呈现我在真实使用中定义的有界混合召回、短摘要与逐记忆原文证据规则。上游当前许可证与版权归其作者所有。
 
 本仓库自行编写的示例代码按 [MIT License](LICENSE) 发布。
